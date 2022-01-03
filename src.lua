@@ -2,7 +2,7 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-local Library = loadstring(game:HttpGet(""))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/its-asia/pendulumUI/main/library.lua",true))()
 
 local Pendulum = Library.CreateLib("Pendulum Hub")
 local UserInputService = game:GetService("UserInputService")
