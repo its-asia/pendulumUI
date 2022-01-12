@@ -5,6 +5,45 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
 local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local CoreGui = game:GetService('CoreGui')
+function Dragify(Frame)
+	local dragToggle = nil
+	local dragSpeed = 0
+	local dragInput = nil
+	local dragStart = nil
+	local dragPos = nil
+	local startPos = Frame.Position
+	local function updateInput(input)
+		local Delta = input.Position - dragStart
+		local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+		Frame.Position = Position
+	end
+	Frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and game:GetService("UserInputService"):GetFocusedTextBox() == nil then
+			dragToggle = true
+			dragStart = input.Position
+			startPos = Frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	Frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	game:GetService("UserInputService").InputChanged:Connect(function(input)
+		if input == dragInput and dragToggle then
+			updateInput(input)
+		end
+	end)
+end
+
 return {
 	CreateLib = function(GuiName)
 		local Gui = Instance.new("ScreenGui")
@@ -39,7 +78,7 @@ return {
 		local Vinculum = Instance.new("Frame")
 
 		Gui.Name = GuiName
-		Gui.Parent = game:GetService("CoreGui")
+		Gui.Parent = CoreGui
 		Gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 		Main.Name = "Main"
@@ -48,10 +87,8 @@ return {
 		Main.Position = UDim2.new(0.5, 0, 0.5, 0)
 		Main.AnchorPoint = Vector2.new(0.5,0.5)
 		Main.Size = UDim2.new(0, 438, 0, 250)
-
-		Main.Active = true
-		Main.Selectable = true
-		Main.Draggable = true
+		
+		Dragify(Main)
 
 		Corner.Name = "Corner"
 		Corner.Parent = Main
