@@ -44,6 +44,15 @@ function Dragify(Frame)
 	end)
 end
 
+--[[
+
+	this is a call for help
+	john (tescalus) has me in his basement
+	he wont let me out until i finish the switches
+	please send help
+
+]]
+
 return {
 	CreateLib = function(GuiName)
 		local Gui = Instance.new("ScreenGui")
@@ -76,6 +85,17 @@ return {
 		local Corner_6 = Instance.new("UICorner")
 		local Padding_2 = Instance.new("UIPadding")
 		local Vinculum = Instance.new("Frame")
+		local SwitchTemplate = Instance.new("Frame")
+		local SwitchCorner = Instance.new("UICorner")
+		local SwitchMoreImage = Instance.new("ImageLabel")
+		local SwitchPadding = Instance.new("UIPadding")
+		local Label = Instance.new("TextLabel")
+		local Switch = Instance.new("Frame")
+		local SwitchCorner_2 = Instance.new("UICorner")
+		local SwitchPadding_2 = Instance.new("UIPadding")
+		local Switch_2 = Instance.new("Frame")
+		local SwitchCorner_3 = Instance.new("UICorner")
+		local SwitchPadding_3 = Instance.new("UIPadding")
 
 		Gui.Name = GuiName
 		Gui.Parent = CoreGui
@@ -276,6 +296,82 @@ return {
 		Vinculum.BorderSizePixel = 0
 		Vinculum.Position = UDim2.new(0, 0, 0.128245845, 0)
 		Vinculum.Size = UDim2.new(0, 438, 0, 1)
+		
+		SwitchTemplate.Name = "SwitchTemplate"
+		SwitchTemplate.Parent = Scroller
+		SwitchTemplate.Active = true
+		SwitchTemplate.BackgroundColor3 = Color3.fromRGB(38, 45, 71)
+		SwitchTemplate.BackgroundTransparency = 0.500
+		SwitchTemplate.LayoutOrder = 1
+		SwitchTemplate.Position = UDim2.new(0, 0, 0.281651974, 0)
+		SwitchTemplate.Selectable = true
+		SwitchTemplate.Visible = false
+		SwitchTemplate.Size = UDim2.new(1, 0, 0, 30)
+
+		SwitchCorner.Name = "SwitchCorner"
+		SwitchCorner.Parent = SwitchTemplate
+
+		SwitchMoreImage.Name = "MoreImage"
+		SwitchMoreImage.Parent = SwitchTemplate
+		SwitchMoreImage.AnchorPoint = Vector2.new(0, 0.5)
+		SwitchMoreImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		SwitchMoreImage.BackgroundTransparency = 1.000
+		SwitchMoreImage.Position = UDim2.new(0, 0, 0.5, 0)
+		SwitchMoreImage.Size = UDim2.new(0, 25, 0, 25)
+		SwitchMoreImage.Image = "rbxassetid://7072719490"
+		SwitchMoreImage.ImageColor3 = Color3.fromRGB(200, 200, 200)
+		SwitchMoreImage.ImageTransparency = 0.750
+		SwitchMoreImage.Visible = false
+
+		SwitchPadding.Name = "SwitchPadding"
+		SwitchPadding.Parent = SwitchTemplate
+		SwitchPadding.PaddingBottom = UDim.new(0, 5)
+		SwitchPadding.PaddingLeft = UDim.new(0, 5)
+		SwitchPadding.PaddingRight = UDim.new(0, 5)
+		SwitchPadding.PaddingTop = UDim.new(0, 5)
+
+		Label.Name = "Label"
+		Label.Parent = SwitchTemplate
+		Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Label.BackgroundTransparency = 1.000
+		Label.Size = UDim2.new(1, 0, 1, 0)
+		Label.Font = Enum.Font.Gotham
+		Label.Text = "Switch"
+		Label.TextColor3 = Color3.fromRGB(200, 200, 200)
+		Label.TextSize = 14.000
+
+		Switch.Name = "Switch"
+		Switch.Parent = SwitchTemplate
+		Switch.BackgroundColor3 = Color3.fromRGB(39, 48, 80)
+		Switch.Position = UDim2.new(0.828846872, 0, 0, 0)
+		Switch.Size = UDim2.new(-0.0906269848, 100, 1, 0)
+
+		SwitchCorner_2.CornerRadius = UDim.new(0, 1000)
+		SwitchCorner_2.Name = "SwitchCorner"
+		SwitchCorner_2.Parent = Switch
+
+		SwitchPadding_2.Name = "SwitchPadding"
+		SwitchPadding_2.Parent = Switch
+		SwitchPadding_2.PaddingBottom = UDim.new(0, 5)
+		SwitchPadding_2.PaddingLeft = UDim.new(0, 5)
+		SwitchPadding_2.PaddingRight = UDim.new(0, 5)
+		SwitchPadding_2.PaddingTop = UDim.new(0, 5)
+
+		Switch_2.Name = "Switch"
+		Switch_2.Parent = Switch
+		Switch_2.BackgroundColor3 = Color3.fromRGB(32, 39, 65)
+		Switch_2.Size = UDim2.new(0, 10, 0, 10)
+
+		SwitchCorner_3.CornerRadius = UDim.new(0, 1000)
+		SwitchCorner_3.Name = "SwitchCorner"
+		SwitchCorner_3.Parent = Switch_2
+
+		SwitchPadding_3.Name = "SwitchPadding"
+		SwitchPadding_3.Parent = Switch_2
+		SwitchPadding_3.PaddingBottom = UDim.new(0, 5)
+		SwitchPadding_3.PaddingLeft = UDim.new(0, 5)
+		SwitchPadding_3.PaddingRight = UDim.new(0, 5)
+		SwitchPadding_3.PaddingTop = UDim.new(0, 5)
 
 		local function ButtonPressed(B,F)
 			if B:IsA("TextButton") then
@@ -293,6 +389,13 @@ return {
 
 				return ButtonPressed(Button,F)
 			end
+		end
+		
+		local function TweenObject(Object,Info,Goals)
+			local Tween = TweenService:Create(Object,Info,Goals)
+			Tween:Play()
+
+			return Tween
 		end
 
 		local function TweenColor(GuiObject,Color,Setting)
@@ -482,6 +585,39 @@ return {
 						end
 					end
 				end)
+			end
+			
+			function Tab:NewSwitch(Text, Description, Function)
+				local SwitchButton = GetTemplate(Section.ScrollerParent.Scroller,"Switch")
+				
+				local Toggled = false
+				local Tweening = false
+				
+				ButtonPressed(SwitchButton.Switch, function()
+					if Tweening then return end
+					
+					Toggled = not Toggled
+					Tweening = true
+					
+					local Goals = {}
+					if Toggled == true then
+						Goals.Position = UDim2.new(1, -10, 0, 0)
+					elseif Toggled == false then
+						Goals.Position = UDim2.fromScale(0, 0)
+					end
+					
+					local Tween = TweenObject(SwitchButton.Switch.Switch, TweenInfo.new(0.15), Goals)
+					Tween.Completed:Wait()
+
+					coroutine.resume(coroutine.create(function()
+						Function(Toggled)
+					end))
+					
+					Tweening = false
+				end)
+				
+				SwitchButton.Label.Text = Text
+				SwitchButton.Name = Text
 			end
 
 			return Tab
